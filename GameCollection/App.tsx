@@ -1,11 +1,17 @@
+
 import React from 'react';
-import { NavigationContainer, DarkTheme } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DarkTheme,
+} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from './screens/HomeScreen';
 import GamesScreen from './screens/GamesScreen';
 import DetailsScreen from './screens/DetailsScreen';
 import AboutScreen from './screens/AboutScreen';
+import CollectionScreen from './screens/CollectionScreen';
+import AddGameScreen from './screens/AddGameScreen';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -17,6 +23,8 @@ export type RootStackParamList = {
     description: string;
   };
   About: undefined;
+  Collection: undefined;
+  AddGame: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -46,44 +54,44 @@ function App() {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
-
-          
           animation: 'slide_from_right',
-
-        
           gestureEnabled: true,
         }}
       >
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{
-            title: 'Game Collection',
-          }}
+          options={{ title: 'Game Collection' }}
         />
 
         <Stack.Screen
           name="Games"
           component={GamesScreen}
-          options={{
-            title: 'My Games',
-          }}
+          options={{ title: 'My Games' }}
         />
 
         <Stack.Screen
           name="Details"
           component={DetailsScreen}
-          options={{
-            title: 'Game Details',
-          }}
+          options={{ title: 'Game Details' }}
         />
 
         <Stack.Screen
           name="About"
           component={AboutScreen}
-          options={{
-            title: 'About',
-          }}
+          options={{ title: 'About' }}
+        />
+
+        <Stack.Screen
+          name="Collection"
+          component={CollectionScreen}
+          options={{ title: 'Saved Collection' }}
+        />
+
+        <Stack.Screen
+          name="AddGame"
+          component={AddGameScreen}
+          options={{ title: 'Add New Game' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

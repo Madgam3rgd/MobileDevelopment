@@ -1,15 +1,23 @@
+
 import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
   Pressable,
+  ScrollView,
 } from 'react-native';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '../App';
 
-function HomeScreen({ navigation }: any) {
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+function HomeScreen({ navigation }: Props) {
   return (
-    <View style={styles.container}>
-
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.content}
+    >
       <View style={styles.hero}>
         <Text style={styles.icon}>🎮</Text>
 
@@ -23,7 +31,8 @@ function HomeScreen({ navigation }: any) {
 
         <Text style={styles.description}>
           Browse the collection and select a game to
-          learn more about its genre, developer, and gameplay.
+          learn more about its genre, developer, and
+          gameplay. You can also save your own games!
         </Text>
       </View>
 
@@ -36,7 +45,7 @@ function HomeScreen({ navigation }: any) {
           onPress={() => navigation.navigate('Games')}
         >
           <Text style={styles.primaryButtonText}>
-            🎮  Browse Games
+            🎮 Browse Games
           </Text>
         </Pressable>
 
@@ -51,13 +60,24 @@ function HomeScreen({ navigation }: any) {
             About the App
           </Text>
         </Pressable>
+
+        <Pressable
+          style={({ pressed }) => [
+            styles.collectionButton,
+            pressed && styles.buttonPressed,
+          ]}
+          onPress={() => navigation.navigate('Collection')}
+        >
+          <Text style={styles.primaryButtonText}>
+            ⭐ My Saved Collection
+          </Text>
+        </Pressable>
       </View>
 
       <Text style={styles.footer}>
         React Native Game Collection
       </Text>
-
-    </View>
+    </ScrollView>
   );
 }
 
@@ -65,10 +85,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0F1020',
+  },
+  content: {
+    flexGrow: 1,
     padding: 25,
     justifyContent: 'center',
   },
-
   hero: {
     backgroundColor: '#17182B',
     padding: 30,
@@ -77,20 +99,17 @@ const styles = StyleSheet.create({
     borderColor: '#292A40',
     marginBottom: 30,
   },
-
   icon: {
     fontSize: 60,
     textAlign: 'center',
     marginBottom: 15,
   },
-
   title: {
     color: '#FFFFFF',
     fontSize: 34,
     fontWeight: 'bold',
     textAlign: 'center',
   },
-
   subtitle: {
     color: '#A78BFA',
     fontSize: 19,
@@ -98,7 +117,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 8,
   },
-
   description: {
     color: '#B8B9C9',
     fontSize: 16,
@@ -106,45 +124,45 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     marginTop: 20,
   },
-
   buttonArea: {
     width: '100%',
   },
-
   primaryButton: {
     backgroundColor: '#7C3AED',
     padding: 17,
     borderRadius: 12,
     marginBottom: 12,
   },
-
   primaryButtonText: {
     color: '#FFFFFF',
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
   },
-
   secondaryButton: {
     backgroundColor: '#1E2038',
     padding: 17,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#7C3AED',
+    marginBottom: 12,
   },
-
   secondaryButtonText: {
     color: '#C4B5FD',
     fontSize: 17,
     fontWeight: 'bold',
     textAlign: 'center',
   },
-
+  collectionButton: {
+    backgroundColor: '#6D28D9',
+    padding: 17,
+    borderRadius: 12,
+    marginTop: 5,
+  },
   buttonPressed: {
     opacity: 0.7,
     transform: [{ scale: 0.98 }],
   },
-
   footer: {
     color: '#686A80',
     textAlign: 'center',

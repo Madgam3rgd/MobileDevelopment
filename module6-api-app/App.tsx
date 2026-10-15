@@ -38,7 +38,7 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [emptyDemo, setEmptyDemo] = useState(false);
 
-  // Prevent old requests from changing the current screen
+  
   const requestId = useRef(0);
 
   // Retrieve posts from JSONPlaceholder
@@ -95,7 +95,7 @@ export default function App() {
     }
   };
 
-  // Automatically load posts when the app opens
+  
   useEffect(() => {
     void fetchPosts();
 
@@ -104,7 +104,7 @@ export default function App() {
     };
   }, []);
 
-  // Simulate an empty API response
+  
   const testEmptyState = () => {
     requestId.current++;
 
@@ -128,7 +128,7 @@ export default function App() {
         style={styles.container}
         edges={['top', 'bottom']}
       >
-        {/* Application title */}
+        
         <Text style={styles.heading}>
           Game Posts Viewer
         </Text>
@@ -226,7 +226,7 @@ export default function App() {
 
         ) : (
 
-          /* Successful and empty states */
+
           <>
             <Text style={styles.counter}>
               Posts Loaded: {posts.length}
@@ -280,8 +280,6 @@ export default function App() {
     </SafeAreaProvider>
   );
 }
-
-// Midnight Purple & Black Theme
 const styles = StyleSheet.create({
   container: {
     flex: 1,

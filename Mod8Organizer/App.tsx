@@ -2,9 +2,8 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 
-// Context providers
+// Main task context
 import { TaskProvider } from './context/Taskcontext';
-import { TaskSettingsProvider } from './context/TaskSettingsContext';
 
 // Main navigation
 import AppNavigator from './navigation/AppNavigator';
@@ -12,10 +11,8 @@ import AppNavigator from './navigation/AppNavigator';
 export default function App() {
   return (
     <TaskProvider>
-      <TaskSettingsProvider>
-        <StatusBar style="light" />
-        <AppNavigator />
-      </TaskSettingsProvider>
+      <StatusBar style="light" />
+      <AppNavigator />
     </TaskProvider>
   );
 }

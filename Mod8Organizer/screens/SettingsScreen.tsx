@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,22 +8,28 @@ import {
   Switch,
   TouchableOpacity,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import {
-  useTaskSettings,
+  useTasks,
   type SortOption,
-} from '../context/TaskSettingsContext';
+} from '../context/Taskcontext';
 
 export default function SettingsScreen() {
   const {
-    sortBy,
-    setSortBy,
+    sortOption,
+    setSortOption,
     showCompleted,
     setShowCompleted,
-  } = useTaskSettings();
+    clearAllTasks,
+    tasks,
+    loading,
+  } = useTasks();
+
+  const [busy, setBusy] = useState(false);
 
   const sortOptions: {
     label: string;
@@ -31,20 +37,72 @@ export default function SettingsScreen() {
   }[] = [
     { label: 'Newest First', value: 'newest' },
     { label: 'Oldest First', value: 'oldest' },
-    { label: 'Alphabetical (A-Z)', value: 'alphabetical' },
+    { label: 'Alphabetical (A-Z)', value: 'az' },
   ];
 
+  // Show or hide completed tasks
+  const handleShowCompleted = async (value: boolean) => {
+    try {
+      await setShowCompleted(value);
+    } catch {
+      Alert.alert(
+        'Error',
+        'Could not save this setting.'
+      );
+    }
+  };
+
+  // Change task sorting
+  const handleSortChange = async (value: SortOption) => {
+    try {
+      await setSortOption(value);
+    } catch {
+      Alert.alert(
+        'Error',
+        'Could not save sorting preference.'
+      );
+    }
+  };
+
+  // Clear all saved tasks
   const handleClearTasks = () => {
+    if (tasks.length === 0) {
+      Alert.alert(
+        'No Tasks',
+        'There are no tasks to delete.'
+      );
+      return;
+    }
+
     Alert.alert(
       'Clear All Tasks',
-      'Are you sure you want to delete all tasks?',
+      'Are you sure you want to permanently delete all tasks?',
       [
-        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
         {
           text: 'Delete All',
           style: 'destructive',
-          onPress: () => {
-            // Keep your existing TaskContext clear-all logic here.
+          onPress: async () => {
+            setBusy(true);
+
+            try {
+              await clearAllTasks();
+
+              Alert.alert(
+                'Success',
+                'All tasks have been deleted.'
+              );
+            } catch {
+              Alert.alert(
+                'Error',
+                'Could not delete all tasks.'
+              );
+            } finally {
+              setBusy(false);
+            }
           },
         },
       ]
@@ -63,9 +121,13 @@ export default function SettingsScreen() {
             size={32}
             color="#A78BFA"
           />
-          <Text style={styles.title}>Settings</Text>
+
+          <Text style={styles.title}>
+            Settings
+          </Text>
         </View>
 
+        {/* Task management */}
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>
             TASK MANAGEMENT
@@ -76,6 +138,7 @@ export default function SettingsScreen() {
               <Text style={styles.settingTitle}>
                 Show Completed Tasks
               </Text>
+
               <Text style={styles.description}>
                 Display finished tasks in your task list.
               </Text>
@@ -83,7 +146,8 @@ export default function SettingsScreen() {
 
             <Switch
               value={showCompleted}
-              onValueChange={setShowCompleted}
+              onValueChange={handleShowCompleted}
+              disabled={loading || busy}
               trackColor={{
                 false: '#44445A',
                 true: '#8B5CF6',
@@ -102,11 +166,14 @@ export default function SettingsScreen() {
             Choose how tasks appear in your list.
           </Text>
 
-          {sortOptions.map((option) => (
+          {sortOptions.map(option => (
             <TouchableOpacity
               key={option.value}
               style={styles.sortRow}
-              onPress={() => setSortBy(option.value)}
+              onPress={() =>
+                handleSortChange(option.value)
+              }
+              disabled={loading || busy}
               activeOpacity={0.75}
             >
               <Text style={styles.sortText}>
@@ -115,7 +182,7 @@ export default function SettingsScreen() {
 
               <Ionicons
                 name={
-                  sortBy === option.value
+                  sortOption === option.value
                     ? 'radio-button-on'
                     : 'radio-button-off'
                 }
@@ -126,6 +193,7 @@ export default function SettingsScreen() {
           ))}
         </View>
 
+        {/* Data management */}
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>
             DATA MANAGEMENT
@@ -135,18 +203,31 @@ export default function SettingsScreen() {
             Manage your saved tasks.
           </Text>
 
+          <Text style={styles.taskCount}>
+            Total Saved Tasks: {tasks.length}
+          </Text>
+
           <TouchableOpacity
             style={styles.deleteButton}
             onPress={handleClearTasks}
+            disabled={busy || loading}
+            activeOpacity={0.8}
           >
-            <Ionicons
-              name="trash-outline"
-              size={22}
-              color="#FFFFFF"
-            />
-            <Text style={styles.deleteButtonText}>
-              Clear All Tasks
-            </Text>
+            {busy ? (
+              <ActivityIndicator color="#FFFFFF" />
+            ) : (
+              <>
+                <Ionicons
+                  name="trash-outline"
+                  size={22}
+                  color="#FFFFFF"
+                />
+
+                <Text style={styles.deleteButtonText}>
+                  Clear All Tasks
+                </Text>
+              </>
+            )}
           </TouchableOpacity>
 
           <Text style={styles.warning}>
@@ -154,11 +235,16 @@ export default function SettingsScreen() {
           </Text>
         </View>
 
+        {/* About */}
         <View style={styles.card}>
-          <Text style={styles.sectionTitle}>ABOUT</Text>
+          <Text style={styles.sectionTitle}>
+            ABOUT
+          </Text>
+
           <Text style={styles.aboutTitle}>
             Personal Task Organizer
           </Text>
+
           <Text style={styles.description}>
             Version 1.0
           </Text>
@@ -238,6 +324,11 @@ const styles = StyleSheet.create({
   sortText: {
     color: '#FFFFFF',
     fontSize: 16,
+  },
+  taskCount: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    marginTop: 16,
   },
   deleteButton: {
     backgroundColor: '#B91C1C',

@@ -1,0 +1,205 @@
+
+{
+  "teams": [
+    {
+      "id": "PIT",
+      "name": "Pittsburgh Steelers",
+      "city": "Pittsburgh",
+      "conference": "AFC",
+      "players": [
+        {
+          "id": "PIT1",
+          "name": "T.J. Watt",
+          "position": "LB",
+          "number": 90
+        },
+        {
+          "id": "PIT2",
+          "name": "Cameron Heyward",
+          "position": "DT",
+          "number": 97
+        }
+      ]
+    },
+    {
+      "id": "PHI",
+      "name": "Philadelphia Eagles",
+      "city": "Philadelphia",
+      "conference": "NFC",
+      "players": [
+        {
+          "id": "PHI1",
+          "name": "Jalen Hurts",
+          "position": "QB",
+          "number": 1
+        },
+        {
+          "id": "PHI2",
+          "name": "A.J. Brown",
+          "position": "WR",
+          "number": 11
+        }
+      ]
+    },
+    {
+      "id": "BUF",
+      "name": "Buffalo Bills",
+      "city": "Buffalo",
+      "conference": "AFC",
+      "players": [
+        {
+          "id": "BUF1",
+          "name": "Josh Allen",
+          "position": "QB",
+          "number": 17
+        },
+        {
+          "id": "BUF2",
+          "name": "James Cook",
+          "position": "RB",
+          "number": 4
+        }
+      ]
+    },
+    {
+      "id": "KC",
+      "name": "Kansas City Chiefs",
+      "city": "Kansas City",
+      "conference": "AFC",
+      "players": [
+        {
+          "id": "KC1",
+          "name": "Patrick Mahomes",
+          "position": "QB",
+          "number": 15
+        },
+        {
+          "id": "KC2",
+          "name": "Travis Kelce",
+          "position": "TE",
+          "number": 87
+        }
+      ]
+    },
+    {
+      "id": "BAL",
+      "name": "Baltimore Ravens",
+      "city": "Baltimore",
+      "conference": "AFC",
+      "players": [
+        {
+          "id": "BAL1",
+          "name": "Lamar Jackson",
+          "position": "QB",
+          "number": 8
+        },
+        {
+          "id": "BAL2",
+          "name": "Derrick Henry",
+          "position": "RB",
+          "number": 22
+        }
+      ]
+    },
+    {
+      "id": "CIN",
+      "name": "Cincinnati Bengals",
+      "city": "Cincinnati",
+      "conference": "AFC",
+      "players": [
+        {
+          "id": "CIN1",
+          "name": "Joe Burrow",
+          "position": "QB",
+          "number": 9
+        },
+        {
+          "id": "CIN2",
+          "name": "Ja'Marr Chase",
+          "position": "WR",
+          "number": 1
+        }
+      ]
+    },
+    {
+      "id": "SF",
+      "name": "San Francisco 49ers",
+      "city": "San Francisco",
+      "conference": "NFC",
+      "players": [
+        {
+          "id": "SF1",
+          "name": "Brock Purdy",
+          "position": "QB",
+          "number": 13
+        },
+        {
+          "id": "SF2",
+          "name": "Christian McCaffrey",
+          "position": "RB",
+          "number": 23
+        }
+      ]
+    },
+    {
+      "id": "DAL",
+      "name": "Dallas Cowboys",
+      "city": "Dallas",
+      "conference": "NFC",
+      "players": [
+        {
+          "id": "DAL1",
+          "name": "Dak Prescott",
+          "position": "QB",
+          "number": 4
+        },
+        {
+          "id": "DAL2",
+          "name": "CeeDee Lamb",
+          "position": "WR",
+          "number": 88
+        }
+      ]
+    },
+    {
+      "id": "DET",
+      "name": "Detroit Lions",
+      "city": "Detroit",
+      "conference": "NFC",
+      "players": [
+        {
+          "id": "DET1",
+          "name": "Jared Goff",
+          "position": "QB",
+          "number": 16
+        },
+        {
+          "id": "DET2",
+          "name": "Amon-Ra St. Brown",
+          "position": "WR",
+          "number": 14
+        }
+      ]
+    },
+    {
+      "id": "GB",
+      "name": "Green Bay Packers",
+      "city": "Green Bay",
+      "conference": "NFC",
+      "players": [
+        {
+          "id": "GB1",
+          "name": "Jordan Love",
+          "position": "QB",
+          "number": 10
+        },
+        {
+          "id": "GB2",
+          "name": "Josh Jacobs",
+          "position": "RB",
+          "number": 8
+        }
+      ]
+    }
+  ]
+}

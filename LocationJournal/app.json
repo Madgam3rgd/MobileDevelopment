@@ -1,0 +1,23 @@
+
+{
+  "expo": {
+    "name": "My Location Journal",
+    "slug": "LocationJournal",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow My Location Journal to take photos."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Allow My Location Journal to save GPS coordinates with journal entries."
+        }
+      ]
+    ]
+  }
+}
